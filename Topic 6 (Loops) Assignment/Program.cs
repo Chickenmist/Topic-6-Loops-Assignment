@@ -8,7 +8,7 @@
         static void Main(string[] args)
         {
             int running = 1; //1 means program is running, 0 will end it
-            int choice = 0;
+            int choice;
 
             while (running == 1)
             {
@@ -59,16 +59,13 @@
         static void Prompter() //Part 1
         {
             int min = -1, max = -1, number = -1;
-            string inputMin, inputMax, inputNumber;
 
             Console.WriteLine("");
             Console.WriteLine("-------Number Prompter-------");
-
             while (min == -1)
             {
                 Console.Write("Enter a minimum (cannot be negative): ");
-                inputMin = Console.ReadLine();
-                int.TryParse(inputMin, out min);
+                int.TryParse(Console.ReadLine(), out min);
 
                 if (min < 0)
                 {
@@ -87,10 +84,9 @@
             while (max == -1)
             {
                 Console.Write("Enter a maximum (cannot be negative or less than the min): ");
-                inputMax = Console.ReadLine();
-                int.TryParse(inputMax, out max);
+                int.TryParse(Console.ReadLine(), out max);
 
-                if (inputMax == "" || max < 0 || max <= min) 
+                if (max <= 0 || max <= min) 
                 {
                     max = -1;
                     Console.WriteLine("");
@@ -107,8 +103,7 @@
             while (number == -1)
             {
                 Console.Write($"Enter a number between {min} and {max} (inclusive): ");
-                inputNumber = Console.ReadLine();
-                int.TryParse(inputNumber, out number);
+                int.TryParse(Console.ReadLine(), out number);
 
                 if (number < 0 || number < min || number > max)
                 {
@@ -121,8 +116,9 @@
                     Console.WriteLine("");
                     Console.WriteLine($"The number you chose was {number}");
                 }
-                Console.WriteLine("");
             }
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("");
         }
 
         static void PercentPassing() //Part 2
@@ -173,17 +169,99 @@
             percentage = (Convert.ToDouble(passed) / Convert.ToDouble(amount)) * 100;
             Console.WriteLine("");
             Console.WriteLine($"{Math.Round(percentage)}% of the scores entered were above 70");
+            Console.WriteLine("-----------------------------");
             Console.WriteLine("");
         }
 
         static void OddSum() //Part 3
         {
+            int input = -1, sum = 0;
 
+            Console.WriteLine("");
+            Console.WriteLine("-------Odd Sum-------");
+
+            while (input == -1)
+            {
+                Console.Write("Please enter a positive number: ");
+                int.TryParse(Console.ReadLine(), out input);
+
+                if (input <= 0)
+                {
+                    input = -1;
+                    Console.WriteLine("");
+                    Console.WriteLine("Invalid");
+                    Console.WriteLine("");
+                }
+            }
+
+            for (int i = 0; i <= input; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    sum += i;
+                }
+            }
+            Console.WriteLine("");
+            Console.WriteLine($"The sum of the odd numbers between 1 and {input} is {sum}");
+            Console.WriteLine("---------------------");
+            Console.WriteLine("");
         }
 
         static void RandomNumbers()//Part 4
         {
+            int min = -1, max = -1, number;
+            Random random = new Random();
 
+            Console.WriteLine("");
+            Console.WriteLine("-------Random Numbers-------");
+            while (min == - 1)
+            {
+                Console.Write("Please enter a positive minimum number: ");
+                int.TryParse(Console.ReadLine(), out min);
+
+                if (min <= 0)
+                {
+                    min = -1;
+                    Console.WriteLine("");
+                    Console.WriteLine("Invalid");
+                    Console.WriteLine("");
+                }
+            }
+
+            Console.WriteLine("");
+
+            while (max == -1)
+            {
+                Console.Write("Please enter a positive maximum number: ");
+                int.TryParse(Console.ReadLine(),out max);
+
+                if (max <= 0 || max <= min)
+                {
+                    max = -1;
+                    Console.WriteLine("");
+                    Console.WriteLine("Invalid");
+                    Console.WriteLine("");
+                }
+            }
+
+            Console.WriteLine("");
+            Console.Write($"The 25 generated random numbers between {min} and {max} are: ");
+
+            for (int i = 0; i < 25; i++)
+            {
+                number = random.Next(min, max + 1);
+
+                if (i < 24)
+                {
+                    Console.Write($"{number}, ");
+                }
+                else if (i == 24)
+                {
+                    Console.WriteLine($"and {number}");
+                }
+            }
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("");
         }
     }
 }
